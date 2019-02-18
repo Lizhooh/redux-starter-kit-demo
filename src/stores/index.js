@@ -7,8 +7,11 @@ const logger = () => next => action => {
     const result = next(action);
     const end = Date.now();
 
-    console.log(`%c${action.type}  %c+${(end - start)}ms`,
-    'color:black;font-weight: 600;', 'color:green;font-weight: 600;');
+    console.log(
+        `%c${action.type}  %c+${(end - start)}ms`,
+        'color:black;font-weight: 600;',
+        'color:green;font-weight: 600;'
+    );
 
     return result;
 };
