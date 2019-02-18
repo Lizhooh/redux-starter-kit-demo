@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { actions } from './stores/actions/index';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+export default connect(
+    state => ({ state: state.index }),
+    actions,
+)(class App extends Component {
+    render() {
+        const { count } = this.props.state;
+        const { add, minus, asyncAdd, asyncMinus } = this.props;
 
-export default App;
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <p>
+                        count = {count}
+                    </p>
+                    <button onClick={e => add(1)}>加一</button>
+                    <button onClick={e => minus(1)}>减一</button>
+                    <button onClick={e => asyncAdd(1)}>异步加一</button>
+                    <button onClick={e => asyncMinus(1)}>异步减一</button>
+                </header>
+            </div>
+        );
+    }
+});
+
+
